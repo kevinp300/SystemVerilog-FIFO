@@ -13,15 +13,12 @@ module fifo #(
     output logic empty
 );
 
-    // Memory Array
     logic [DATA_WIDTH-1:0] mem [FIFO_DEPTH-1:0];
-
-    // Pointers (Width = log2(DEPTH) + 1 extra bit for wrap detection)
     localparam PTR_WIDTH = $clog2(FIFO_DEPTH);
     logic [PTR_WIDTH:0] wr_ptr;
     logic [PTR_WIDTH:0] rd_ptr;
 
-    // --- WRITE LOGIC ---
+    // Write Logic
     always_ff @(posedge clk or negedge rst_n) begin
         if (!rst_n) begin
             wr_ptr <= '0;
@@ -31,7 +28,7 @@ module fifo #(
         end
     end
 
-    // --- READ LOGIC ---
+    // Read Logic
     always_ff @(posedge clk or negedge rst_n) begin
         if (!rst_n) begin
             rd_ptr <= '0;
@@ -41,11 +38,8 @@ module fifo #(
         end
     end
 
-    // --- FLAGS LOGIC ---
-    // Empty: Pointers are identical
+    // Flags
     assign empty = (wr_ptr == rd_ptr);
-
-    // Full: Pointers match in index (lower bits) but differ in wrap bit (MSB)
     assign full  = (wr_ptr[PTR_WIDTH-1:0] == rd_ptr[PTR_WIDTH-1:0]) && 
                    (wr_ptr[PTR_WIDTH] != rd_ptr[PTR_WIDTH]);
 

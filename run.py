@@ -18,7 +18,7 @@ def run_simulation():
     log_filename = os.path.join(REPORT_DIR, f"regression_{get_timestamp()}.log")
     
     print("-" * 50)
-    print(f"STARTING: IBM FIFO Regression Test...")
+    print(f"STARTING: FIFO Regression Test...")
     print(f"LOG FILE: {log_filename}")
     print("-" * 50)
 
@@ -46,7 +46,7 @@ def run_simulation():
         # We can stick to standard encoding now since there are no special characters
         with open(log_filename, "w") as f:
             f.write("="*60 + "\n")
-            f.write(f"IBM STORAGE - DESIGN VERIFICATION REPORT\n")
+            f.write(f"DESIGN VERIFICATION REPORT\n")
             f.write(f"Date: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}\n")
             f.write("="*60 + "\n\n")
             
